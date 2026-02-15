@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from src.core.database import Base
+from src.core.database_base import Base
 
 class Rider(Base):
     __tablename__ = "riders"
