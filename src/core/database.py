@@ -2,13 +2,15 @@ import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.pool import QueuePool
+from src.core.config import settings
+from src.core.database_base import Base
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://user:password@localhost:5432/motogp_db")
 
 # QueuePool to handle concurrent requests during race weekends.
 engine = create_async_engine(
-    DATABASE_URL,
-    echo=False,  # Set to True for debugging SQL queries during development
+    settings.DATABASE_URL,
+    echo=settings.ENVIRONMENT == "development",  
     pool_size=20,  # Max number of permanent connections
     max_overflow=10, # Temporary connections allowed during spikes
     pool_pre_ping=True # Ensures the connection is alive before using it
