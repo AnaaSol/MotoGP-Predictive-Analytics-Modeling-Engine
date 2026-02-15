@@ -20,7 +20,7 @@ An advanced Full-Stack and Machine Learning platform designed to decode the comp
 ## 📂 Repository Structure
 
 ```text
-motogp-analytics/
+MotoGP-Predictive-Analytics-Modeling-Engine/
 ├── alembic/                # Database migration environment
 ├── data/
 │   ├── raw/                # Unprocessed JSON/HTML/PDF data
