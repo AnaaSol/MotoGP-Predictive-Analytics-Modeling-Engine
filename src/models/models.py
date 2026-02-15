@@ -40,19 +40,19 @@ class LapTelemetry(Base):
     lap_number = Column(Integer)
     lap_time_raw = Column(Float)
     
-    # Sector analysis for granular degradation
-    s1_time = Column(Float)
-    s2_time = Column(Float)
-    s3_time = Column(Float)
-    s4_time = Column(Float) # MotoGP tracks usually have 4 sectors
+    # This will now link to as many sectors as the track provides
+    sectors = relationship("LapSector", back_populates="lap")
     
-    # Tire specs for this specific stint
-    front_compound = Column(String) # Soft, Medium, Hard
+    front_compound = Column(String)
     rear_compound = Column(String)
-    rear_tire_age_at_start = Column(Integer) # Laps already on tire
-    
-    # Engine/Fuel state
     fuel_load_est = Column(Float)
-    engine_map = Column(String) # e.g., "Map 1", "Map 2"
+
+class LapSector(Base):
+    __tablename__ = "lap_sectors"
+    id = Column(Integer, primary_key=True, index=True)
+    lap_id = Column(Integer, ForeignKey("lap_telemetry.id"))
     
-    rider = relationship("Rider", back_populates="telemetry")
+    sector_number = Column(Integer) 
+    sector_time = Column(Float)
+    
+    lap = relationship("LapTelemetry", back_populates="sectors")
