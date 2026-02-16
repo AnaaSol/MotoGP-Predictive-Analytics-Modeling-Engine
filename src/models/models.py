@@ -37,6 +37,8 @@ class LapTelemetry(Base):
     rider_id = Column(Integer, ForeignKey("riders.id"))
     session_id = Column(Integer, ForeignKey("race_sessions.id"))
     
+    rider = relationship("Rider", back_populates="telemetry")
+    
     lap_number = Column(Integer)
     lap_time_raw = Column(Float)
     
